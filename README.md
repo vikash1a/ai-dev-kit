@@ -27,6 +27,13 @@ claude plugin marketplace add vikash1a/claude-dev-kit
 claude plugin install claude-dev-kit@claude-dev-kit
 ```
 
+### Updating
+
+```bash
+claude plugin marketplace update claude-dev-kit
+claude plugin update claude-dev-kit@claude-dev-kit
+```
+
 ### Requirements
 
 - `ruff` must be installed for the PostToolUse hook (`pip install ruff` or `brew install ruff`)
