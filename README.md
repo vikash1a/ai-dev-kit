@@ -1,4 +1,4 @@
-# claude-config
+# claude-dev-kit
 
 Personal Claude Code plugin — slash commands and hooks for everyday dev work.
 
@@ -27,17 +27,17 @@ Add this repo as a marketplace source in `~/.claude/settings.json`:
 ```json
 {
   "extraKnownMarketplaces": {
-    "claude-config": {
+    "claude-dev-kit": {
       "source": {
         "source": "github",
-        "repo": "vikash1a/claude-config"
+        "repo": "vikash1a/claude-dev-kit"
       }
     }
   }
 }
 ```
 
-Then install via `/plugin install claude-config@claude-config`.
+Then install via `/plugin install claude-dev-kit@claude-dev-kit`.
 
 ### Requirements
 
