@@ -22,22 +22,10 @@ Personal Claude Code plugin — slash commands and hooks for everyday dev work.
 
 ### As a plugin (recommended)
 
-Add this repo as a marketplace source in `~/.claude/settings.json`:
-
-```json
-{
-  "extraKnownMarketplaces": {
-    "claude-dev-kit": {
-      "source": {
-        "source": "github",
-        "repo": "vikash1a/claude-dev-kit"
-      }
-    }
-  }
-}
+```bash
+claude plugin marketplace add vikash1a/claude-dev-kit
+claude plugin install claude-dev-kit@claude-dev-kit
 ```
-
-Then install via `/plugin install claude-dev-kit@claude-dev-kit`.
 
 ### Requirements
 
