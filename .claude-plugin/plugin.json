@@ -1,0 +1,7 @@
+{
+  "name": "claude-config",
+  "description": "Personal slash commands and hooks — commit, review, spec, QA, ruff linting, and desktop notifications",
+  "author": {
+    "name": "vikash1a"
+  }
+}

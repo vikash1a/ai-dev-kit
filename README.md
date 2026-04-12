@@ -1,33 +1,45 @@
 # claude-config
 
-Personal Claude Code configuration — slash commands, hooks, and settings.
+Personal Claude Code plugin — slash commands and hooks for everyday dev work.
 
-## Slash Commands
-
-Stored in `.claude/commands/`. Available in any project that includes this config.
+## Commands
 
 | Command | What it does |
 |---|---|
 | `/commit` | Reads staged diff, writes a conventional commit message, and runs the commit |
-| `/review [file or diff]` | Code review checklist: correctness, security, readability, test coverage |
-| `/spec <feature description>` | Turns a feature description into a structured plan: context, acceptance criteria, tasks, risks |
-| `/qa <target>` | Generates a QA checklist: happy path, access boundaries, input validation, edge cases, regressions |
+| `/review [file or diff]` | Code review: correctness, security, readability, test coverage |
+| `/spec <feature>` | Turns a feature description into a plan: context, acceptance criteria, tasks, risks |
+| `/qa <target>` | QA checklist: happy path, access boundaries, input validation, edge cases, regressions |
 
 ## Hooks
-
-Configured in `.claude/settings.json`.
 
 | Event | What it does |
 |---|---|
 | `PostToolUse` (Write/Edit) | Runs `ruff check --fix` on any `.py` file after it's written or edited |
 | `Stop` | Sends a macOS desktop notification when Claude finishes responding |
 
-## Usage
+## Installation
 
-To use these globally, symlink the commands directory:
+### As a plugin (recommended)
 
-```bash
-ln -s ~/git-repos/claude-config/.claude/commands ~/.claude/commands
+Add this repo as a marketplace source in `~/.claude/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "claude-config": {
+      "source": {
+        "source": "github",
+        "repo": "vikash1a/claude-config"
+      }
+    }
+  }
+}
 ```
 
-Or add this repo's `.claude/` path to `additionalDirectories` in `~/.claude/settings.json`.
+Then install via `/plugin install claude-config@claude-config`.
+
+### Requirements
+
+- `ruff` must be installed for the PostToolUse hook (`pip install ruff` or `brew install ruff`)
+- macOS required for the Stop notification hook
