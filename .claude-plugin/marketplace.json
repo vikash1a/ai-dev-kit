@@ -1,12 +1,12 @@
 {
-  "name": "claude-dev-kit",
+  "name": "ai-dev-kit",
   "owner": {
     "name": "vikash1a"
   },
   "plugins": [
     {
-      "name": "claude-dev-kit",
-      "description": "Personal slash commands and hooks — commit, review, spec, QA, ruff linting, and desktop notifications",
+      "name": "ai-dev-kit",
+      "description": "Universal AI dev toolkit: slash commands, skills, linting hooks, and desktop notifications",
       "source": "./"
     }
   ]

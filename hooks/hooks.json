@@ -1,5 +1,5 @@
 {
-  "description": "Linting, formatting, and macOS notifications for Claude Code sessions.",
+  "description": "Linting, formatting, safety guardrails, and desktop notifications for Claude Code sessions.",
   "hooks": {
     "PostToolUse": [
       {
@@ -7,25 +7,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "file=$(cat | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))\" 2>/dev/null); [[ \"$file\" == *.py ]] && ruff check --fix \"$file\" 2>/dev/null; true"
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
+            "command": "./scripts/lint-python.sh"
+          },
           {
             "type": "command",
-            "command": "file=$(cat | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))\" 2>/dev/null); [[ \"$file\" == *.ts || \"$file\" == *.tsx || \"$file\" == *.js || \"$file\" == *.jsx ]] && command -v prettier &>/dev/null && prettier --write \"$file\" 2>/dev/null; true"
-          }
-        ]
-      },
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
+            "command": "./scripts/format-js.sh"
+          },
           {
             "type": "command",
-            "command": "file=$(cat | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))\" 2>/dev/null); [[ \"$file\" == *.go ]] && command -v gofmt &>/dev/null && gofmt -w \"$file\" 2>/dev/null; true"
+            "command": "./scripts/format-go.sh"
           }
         ]
       },
@@ -34,7 +24,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "input=$(cat | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('command',''))\" 2>/dev/null); [[ \"$input\" == *\"rm -rf\"* || \"$input\" == *\"git push --force\"* || \"$input\" == *\"DROP TABLE\"* ]] && osascript -e 'display notification \"⚠️ Destructive command detected\" with title \"Claude Code\"' 2>/dev/null && afplay /System/Library/Sounds/Basso.aiff 2>/dev/null; true"
+            "command": "./scripts/guard-destructive.sh"
           }
         ]
       }
@@ -45,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"Claude finished\" with title \"Claude Code\"' 2>/dev/null && afplay /System/Library/Sounds/Glass.aiff 2>/dev/null; true"
+            "command": "./scripts/notify.sh \"Claude Code\" \"Claude finished responding\" \"Glass\""
           }
         ]
       }
@@ -56,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"Subagent finished\" with title \"Claude Code\"' 2>/dev/null && afplay /System/Library/Sounds/Tink.aiff 2>/dev/null; true"
+            "command": "./scripts/notify.sh \"Claude Code\" \"Subagent finished\" \"Tink\""
           }
         ]
       }

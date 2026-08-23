@@ -1,6 +1,6 @@
 {
-  "name": "claude-dev-kit",
-  "description": "Personal slash commands and hooks — commit, review, spec, QA, ruff linting, and desktop notifications",
+  "name": "ai-dev-kit",
+  "description": "Universal AI dev toolkit: slash commands, skills, linting hooks, and desktop notifications for Claude Code, Cursor, and Antigravity",
   "author": {
     "name": "vikash1a"
   }
