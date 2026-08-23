@@ -35,16 +35,17 @@
       ]
     },
     "atlassian": {
-      "command": "npx",
+      "command": "uvx",
       "args": [
-        "-y",
-        "@modelcontextprotocol/server-atlassian"
+        "mcp-atlassian"
       ],
       "env": {
-        "CONFLUENCE_URL": "${CONFLUENCE_URL}",
         "JIRA_URL": "${JIRA_URL}",
-        "ATLASSIAN_API_KEY": "${ATLASSIAN_API_KEY}",
-        "ATLASSIAN_EMAIL": "${ATLASSIAN_EMAIL}"
+        "JIRA_USERNAME": "${JIRA_USERNAME}",
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}",
+        "CONFLUENCE_URL": "${CONFLUENCE_URL}",
+        "CONFLUENCE_USERNAME": "${CONFLUENCE_USERNAME}",
+        "CONFLUENCE_API_TOKEN": "${CONFLUENCE_API_TOKEN}"
       }
     },
     "custom-starter": {
