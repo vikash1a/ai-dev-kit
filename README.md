@@ -1,91 +1,121 @@
 # ai-dev-kit
 
-Universal AI developer toolkit — slash commands, skills, automatic linting hooks, safety guardrails, and desktop notifications for **Claude Code**, **Cursor**, and **Antigravity (AGY)**.
+Universal, declarative AI developer toolkit plugin for **Antigravity (AGY)**, **Claude Code**, and **Cursor**.
+
+Zero build scripts, zero dependencies — pure declarative JSON and Markdown.
 
 ---
 
-## Features
+## 📁 Repository Structure
 
-### 1. Slash Commands & Skills
-
-| Command / Skill | Description |
-|---|---|
-| `/commit` | Reads staged diff, generates a conventional commit message, and commits |
-| `/review [file/diff]` | Multi-dimension code review: correctness, security, readability, test coverage |
-| `/spec <feature>` | Generates structured implementation plan: context, acceptance criteria, tasks, risks |
-| `/qa <target>` | Generates thorough QA checklist: happy path, permissions, validation, edge cases |
-
-### 2. Automatic Hooks & Verification
-
-| Event / Trigger | Action | Target / Providers |
-|---|---|---|
-| **Python edits** | Auto-lints & formats with `ruff check --fix` and `ruff format` | Claude Code, AGY, Cursor |
-| **JS / TS edits** | Auto-formats with `prettier --write` | Claude Code, AGY, Cursor |
-| **Go edits** | Auto-formats with `gofmt -w` / `goimports -w` | Claude Code, AGY, Cursor |
-| **Destructive commands** | Detects `rm -rf`, `git push --force`, `DROP TABLE` + sounds alert | Claude Code, AGY |
-| **Session completion** | Cross-platform desktop notification + completion sound | Claude Code, AGY |
-
----
-
-## Compatibility Matrix
-
-| Feature | Claude Code | Cursor IDE | Antigravity (AGY) |
-|---|:---:|:---:|:---:|
-| **Slash Commands / Skills** | `.claude/commands/*.md` | `.cursor/commands/*.md` | `.agents/skills/<name>/SKILL.md` |
-| **Rules & Guardrails** | `.claude/settings.json` | `.cursor/rules/dev-kit.mdc` | `.agents/rules/dev-kit.md` |
-| **Lifecycle Hooks** | Native JSON (`PostToolUse`, `Stop`) | Rule-instructed verification | Native JSON (`PostToolUse`, `PreToolUse`, `Stop`) |
-| **Desktop Notifications** | macOS, Linux, Windows | Via scripts | macOS, Linux, Windows |
-
----
-
-## Installation
-
-### Method 1: Universal Installer (Recommended)
-
-Run `install.sh` from the repository:
-
-```bash
-# Auto-detect tools in current project
-./install.sh
-
-# Install for all three providers in a target project
-./install.sh /path/to/my-project --all
-
-# Install for specific providers only
-./install.sh /path/to/my-project --providers claude,cursor,agy
-
-# Use symlinks instead of copying files
-./install.sh /path/to/my-project --all --symlink
+```text
+ai-dev-kit/
+├── plugin.json                 # Universal package manifest
+├── mcp_config.json             # MCP server integrations (filesystem, github, notion, etc.)
+├── hooks.json                  # Automated lifecycle hooks (macOS native)
+├── rules/
+│   └── dev-kit.md              # Coding standards & safety guardrails
+├── agents/                     # Specialized subagent definitions
+│   └── security-auditor.md     # AppSec vulnerability & security scanner
+├── skills/                     # Specialized skills & playbooks
+│   ├── commit/SKILL.md         # /commit (reads staged diff & conventional commit)
+│   ├── review/SKILL.md         # /review (multi-dimension code review)
+│   ├── spec/SKILL.md           # /spec (feature spec & implementation plan)
+│   └── qa/SKILL.md             # /qa (QA checklist & edge cases)
+└── README.md
 ```
 
 ---
 
-### Method 2: Provider-Specific Setup
+## ⚡ Features
 
-#### Claude Code (Plugin Marketplace)
+### 1. Skills & Playbooks
+- **`/commit`**: Inspects staged changes, generates a concise conventional commit message, and commits.
+- **`/review`**: Analyzes code/diff across correctness, security, maintainability, and test coverage.
+- **`/spec <feature>`**: Generates structured feature implementation plans with tasks and risks.
+- **`/qa <target>`**: Generates exhaustive QA test matrices covering validation, permissions, and edge cases.
+
+### 2. Specialized Subagents (`agents/`)
+- **`security-auditor`**: Dedicated AppSec subagent for vulnerability assessments, secret detection, injection checks, and dependency audits.
+
+### 3. Native macOS Lifecycle Hooks (`hooks.json`)
+- **Python**: Auto-lints & formats with `ruff check --fix` and `ruff format`.
+- **JS / TS / Web**: Auto-formats with `prettier --write`.
+- **Go**: Auto-formats with `gofmt -w`.
+- **Session End**: Native macOS banner notification (`osascript`) and audio chime (`afplay Glass`).
+
+### 4. Model Context Protocol (MCP) Servers (`mcp_config.json`)
+- **Filesystem**: `@modelcontextprotocol/server-filesystem`
+- **GitHub**: `@modelcontextprotocol/server-github` (`GITHUB_PERSONAL_ACCESS_TOKEN`)
+- **Notion**: `notion-mcp-server` (`NOTION_API_KEY`)
+- **Fetch**: `mcp-server-fetch` (via `uvx`)
+- **Atlassian**: `@modelcontextprotocol/server-atlassian` (`Jira` / `Confluence`)
+
+---
+
+## 🚀 Installation & Management
+
+### 1. Antigravity (AGY)
+
+#### Native CLI Commands (Recommended)
 ```bash
-claude plugin marketplace add vikash1a/ai-dev-kit
-claude plugin install ai-dev-kit@ai-dev-kit
+# Install the plugin locally into your profile
+agy plugin install /Users/vikash.sinha/git-repos/dev-tools/ai-dev-kit
+
+# List installed plugins & verify loaded components
+agy plugin list
+
+# Temporarily disable or re-enable the plugin
+agy plugin disable ai-dev-kit
+agy plugin enable ai-dev-kit
+
+# Uninstall / purge plugin
+agy plugin uninstall ai-dev-kit
 ```
 
-#### Antigravity (AGY)
-```bash
-./providers/agy/generate.sh /path/to/my-project
+#### Alternative: Global Registration via `plugins.json`
+Add the repository directly to `~/.gemini/config/plugins.json`:
+```json
+{
+  "entries": [
+    { "path": "/Users/vikash.sinha/git-repos/dev-tools/ai-dev-kit" }
+  ]
+}
 ```
 
-#### Cursor IDE
+#### Alternative: Workspace-Level Symlink
 ```bash
-./providers/cursor/generate.sh /path/to/my-project
+mkdir -p .agents/plugins
+ln -sf /Users/vikash.sinha/git-repos/dev-tools/ai-dev-kit .agents/plugins/ai-dev-kit
 ```
 
 ---
 
-## Requirements
+### 2. Claude Code
+```bash
+# Install as a local plugin directly
+claude plugin install /Users/vikash.sinha/git-repos/dev-tools/ai-dev-kit
+```
 
-- **Python linting**: `ruff` (`pip install ruff` or `brew install ruff`)
-- **JS/TS formatting**: `prettier` (`npm install -g prettier` or local `node_modules`)
-- **Go formatting**: `gofmt` or `goimports`
-- **Notifications**:
-  - macOS: built-in (`osascript`, `afplay`)
-  - Linux: `notify-send`, `paplay` / `aplay`
-  - Windows: PowerShell
+---
+
+### 3. Cursor IDE
+
+Because `ai-dev-kit` contains `plugin.json` at its root, Cursor natively recognizes it as an **Agent Plugin**.
+
+#### Option A: Local Plugin Development / User Scope (Recommended)
+Symlink into Cursor's local plugins directory:
+```bash
+mkdir -p ~/.cursor/plugins/local
+ln -sf /Users/vikash.sinha/git-repos/dev-tools/ai-dev-kit ~/.cursor/plugins/local/ai-dev-kit
+```
+
+#### Option B: Sidebar UI
+1. Open **Customize** in the Cursor sidebar.
+2. Under Plugins, select **Install** and choose **Project** or **User** scope.
+
+#### Option C: Workspace-Level Symlink
+```bash
+mkdir -p .cursor/plugins
+ln -sf /Users/vikash.sinha/git-repos/dev-tools/ai-dev-kit .cursor/plugins/ai-dev-kit
+```

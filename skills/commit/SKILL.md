@@ -1,3 +1,8 @@
+---
+name: commit
+description: Reads staged git diff, generates a clean conventional commit message, and executes the commit.
+---
+
 Run `git diff --staged` to see what's staged. Then write and execute a conventional commit.
 
 Format: `<type>(<scope>): <description>`

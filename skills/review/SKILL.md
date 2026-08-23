@@ -1,3 +1,8 @@
+---
+name: review
+description: Review code or diff across multiple dimensions including correctness, security, readability, and test coverage.
+---
+
 Review the code specified in $ARGUMENTS (or the current diff if no argument given).
 
 ## Correctness

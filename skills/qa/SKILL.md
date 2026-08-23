@@ -1,3 +1,8 @@
+---
+name: qa
+description: Generates a comprehensive QA testing checklist covering happy paths, permissions, validations, edge cases, and regression risks.
+---
+
 Generate a QA checklist for the feature, endpoint, or component described below.
 
 Target: $ARGUMENTS

@@ -1,3 +1,8 @@
+---
+name: spec
+description: Turns a feature description into a structured implementation plan with context, acceptance criteria, tasks, and risks.
+---
+
 Turn the following feature description into a structured implementation plan.
 
 Feature: $ARGUMENTS
