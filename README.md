@@ -50,7 +50,7 @@ ai-dev-kit/
 - **Notion**: `notion-mcp-server` (`NOTION_API_KEY`)
 - **Fetch**: `mcp-server-fetch` (via `uvx`)
 - **Atlassian**: `@modelcontextprotocol/server-atlassian` (`Jira` / `Confluence`)
-- **Google Sheets**: `@modelcontextprotocol/server-google-sheets` (`GOOGLE_SHEETS_API_KEY`)
+- **Google Sheets**: `google-sheets-mcp` (`GOOGLE_ACCESS_TOKEN`)
 
 ---
 
