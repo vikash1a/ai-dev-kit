@@ -38,11 +38,8 @@
       "command": "npx",
       "args": [
         "-y",
-        "google-sheets-mcp"
-      ],
-      "env": {
-        "GOOGLE_ACCESS_TOKEN": "3a281dd126b9ccf10d89385aa0c543270820f461"
-      }
+        "mcp-gsheets"
+      ]
     },
     "custom-starter": {
       "command": "node",
