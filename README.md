@@ -51,6 +51,7 @@ ai-dev-kit/
 - **Fetch**: `mcp-server-fetch` (via `uvx`)
 - **Atlassian**: `@modelcontextprotocol/server-atlassian` (`Jira` / `Confluence`)
 - **Google Sheets**: `mcp-gsheets` (`GOOGLE_APPLICATION_CREDENTIALS` or `GOOGLE_SERVICE_ACCOUNT_KEY`)
+- **Google Calendar**: `@cocal/google-calendar-mcp` (Google Calendar events, scheduling, and management)
 
 ---
 

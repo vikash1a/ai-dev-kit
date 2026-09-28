@@ -41,6 +41,13 @@
         "mcp-gsheets"
       ]
     },
+    "google-calendar": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@cocal/google-calendar-mcp"
+      ]
+    },
     "custom-starter": {
       "command": "node",
       "args": [
